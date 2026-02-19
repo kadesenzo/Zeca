@@ -1,21 +1,20 @@
-
 import React, { useState, useEffect } from 'react';
-import { Hero } from './components/Hero';
-import { About } from './components/About';
-import { Impact } from './components/Impact';
-import { DigitalArt } from './components/DigitalArt';
-import { Donation } from './components/Donation';
-import { Footer } from './components/Footer';
-import { Header } from './components/Header';
-import { FloatingDonate } from './components/FloatingDonate';
-import { WavySection } from './components/WavySection';
+import { Hero } from './components/Hero.tsx';
+import { About } from './components/About.tsx';
+import { Impact } from './components/Impact.tsx';
+import { DigitalArt } from './components/DigitalArt.tsx';
+import { Donation } from './components/Donation.tsx';
+import { Footer } from './components/Footer.tsx';
+import { Header } from './components/Header.tsx';
+import { FloatingWhatsApp } from './components/FloatingWhatsApp.tsx';
+import { WavySection } from './components/WavySection.tsx';
 
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 80);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -26,33 +25,36 @@ const App: React.FC = () => {
       <Header isScrolled={scrolled} />
       
       <main>
-        <section id="hero">
+        <section id="hero" className="relative">
           <Hero />
+          {/* Circular Wave Transition at the bottom of Hero */}
+          <div className="absolute bottom-0 left-0 w-full pointer-events-none z-20">
+            <WavySection color="#34C759" opacity={0.15} />
+          </div>
         </section>
 
-        <WavySection color="rgba(52, 199, 89, 0.12)" />
-
-        <section id="sobre" className="relative z-10 py-16">
+        <section id="sobre" className="relative z-10 pt-20">
           <About />
         </section>
 
-        <section id="digital" className="bg-[#1C1C1E] rounded-t-[4rem] py-24 shadow-2xl">
+        <section id="digital" className="bg-[#1C1C1E] rounded-t-[5rem] py-32 shadow-2xl relative z-20 mt-[-2rem]">
+           <div className="absolute top-0 left-0 w-full rotate-180 opacity-50">
+            <WavySection color="#34C759" opacity={0.1} />
+          </div>
           <DigitalArt />
         </section>
 
-        <WavySection color="rgba(52, 199, 89, 0.08)" flip />
-
-        <section id="impacto" className="py-24">
+        <section id="impacto" className="py-32 relative">
           <Impact />
         </section>
 
-        <section id="apoio" className="bg-[#1C1C1E] rounded-t-[4rem] py-24 shadow-2xl">
+        <section id="apoio" className="bg-[#1C1C1E] rounded-t-[5rem] py-32 shadow-2xl relative z-20 mt-[-5rem]">
           <Donation />
         </section>
       </main>
 
       <Footer />
-      <FloatingDonate />
+      <FloatingWhatsApp />
     </div>
   );
 };
